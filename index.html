@@ -246,6 +246,37 @@ footer{position:relative;z-index:1;padding:40px 0 96px;text-align:center;color:v
 .lb-next{right:16px;top:50%;transform:translateY(-50%)}
 .lb-count{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:rgba(255,255,255,.9);font-size:.95rem}
 
+/* ---------- Окно с условиями акции ---------- */
+.modal{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(90,26,54,.45);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.modal[hidden]{display:none}
+.modal:not([hidden]){animation:fin .35s ease both}
+.sheet{width:100%;max-width:540px;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;border-radius:36px;background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(255,247,251,.9));animation:pop .55s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translateY(34px) scale(.96)}}
+.sheet-body{overflow-y:auto;overscroll-behavior:contain;padding:clamp(30px,5vw,44px) clamp(20px,4vw,34px) clamp(24px,4vw,34px);text-align:center;border-radius:inherit}
+.sheet-x{position:absolute;top:14px;right:14px;z-index:3;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.92);color:var(--berry);font:400 1.7rem/1 var(--sans);cursor:pointer;box-shadow:0 4px 12px rgba(214,57,127,.2);transition:transform .3s var(--ease)}
+.sheet-x:hover{transform:rotate(90deg) scale(1.06)}
+.sheet .script{margin:0 0 8px;padding:0 30px;color:var(--rose);font:400 1.35rem/1.25 var(--script)}
+.sheet h2{font-size:clamp(1.8rem,5.5vw,2.4rem);margin-bottom:4px}
+.ring-cap{margin:0 0 4px;color:var(--soft)}
+.ring{position:relative;width:180px;height:180px;margin:26px auto 6px}
+.ring svg{display:block;transform:rotate(-90deg)}
+.ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:italic 600 3rem/1 var(--display);color:var(--rose)}
+.ring-num small{margin-left:3px;font-size:1.3rem;font-style:normal}
+.ring-nail{position:absolute;left:50%;top:-8px;font-size:2.2rem;line-height:1;opacity:0;transform:translate(-50%,0) scale(0);transition:transform .6s var(--ease),opacity .4s}
+.ring-nail.show{opacity:1;transform:translate(-50%,-16px) scale(1)}
+.ring-label{margin:0 0 22px;color:var(--soft);font-size:.92rem;font-weight:500}
+.terms{text-align:left;font-size:.98rem;line-height:1.65}
+.terms p{margin:0 0 .9em}
+.steps{margin:14px 0;padding:14px 18px;border-radius:22px;background:rgba(255,226,238,.75);box-shadow:inset 0 1px 0 #fff,0 0 0 1px rgba(214,57,127,.12)}
+.steps p{margin:0 0 4px}
+.steps ul{margin:0;padding-left:20px}
+.terms .end{margin:16px 0 0;text-align:center;font-weight:600;color:var(--rose)}
+.sheet-actions{display:grid;justify-items:center;gap:10px;margin-top:22px}
+.sheet-actions .btn{width:100%;max-width:340px}
+.sign{margin:20px 0 0;color:var(--berry);font:400 1.5rem/1.2 var(--script)}
+.sign span{color:var(--rose)}
+@media (max-width:480px){.sheet{border-radius:28px}}
+
 /* ---------- Планшет и телефон ---------- */
 @media (max-width:900px){
   .hero .wrap,.about,.contacts-grid,.promo{grid-template-columns:minmax(0,1fr)}
@@ -449,8 +480,8 @@ footer{position:relative;z-index:1;padding:40px 0 96px;text-align:center;color:v
       <div class="promo glass rv">
         <div>
           <h2 id="promo-title">Приведи подругу</h2>
-          <p>Получи скидку до 100% за каждую подругу. Собери 10 подруг — получи процедуру в подарок.</p>
-          <a class="btn btn-glow" href="https://mimishkastudio.ru/referal" target="_blank" rel="noopener">Условия акции</a>
+          <p>Приведи подругу и получи скидку до 100%: по 10% за каждую. Собери 10 подруг — процедура в подарок.</p>
+          <button type="button" class="btn btn-glow" data-open="promo-modal" aria-haspopup="dialog">Условия акции</button>
           <p class="small">Следите за обновлениями: скоро здесь появятся новые акции.</p>
         </div>
         <div class="big" aria-hidden="true">100%</div>
@@ -500,6 +531,57 @@ footer{position:relative;z-index:1;padding:40px 0 96px;text-align:center;color:v
 <footer>MiMishka Studio, Москва</footer>
 
 <a class="btn btn-glow fab" id="fab" href="#contacts">Записаться</a>
+
+<div class="modal" id="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promo-modal-title" hidden>
+  <div class="sheet glass">
+    <button type="button" class="sheet-x" data-close aria-label="Закрыть">&times;</button>
+    <div class="sheet-body">
+      <p class="script">Поделитесь заботой о красоте с близким человеком</p>
+      <h2 id="promo-modal-title">Приведи подругу</h2>
+      <p class="ring-cap">и получи скидку до</p>
+
+      <div class="ring" aria-hidden="true">
+        <svg width="180" height="180" viewBox="0 0 180 180">
+          <defs>
+            <linearGradient id="pm-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff8fbf"/>
+              <stop offset="100%" stop-color="#d6397f"/>
+            </linearGradient>
+          </defs>
+          <circle cx="90" cy="90" r="75" fill="none" stroke="#ffe0ee" stroke-width="12"/>
+          <circle id="pm-bar" cx="90" cy="90" r="75" fill="none" stroke="url(#pm-grad)" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+        <div class="ring-num"><span id="pm-num">10</span><small>%</small></div>
+        <div class="ring-nail" id="pm-nail">💅</div>
+      </div>
+      <p class="ring-label">Твоя скидка растёт с каждой подругой</p>
+
+      <div class="terms">
+        <p>🌸 <b>Акция, которую вы так долго ждали!</b> Приведи подругу — получи скидку до 100%!</p>
+        <p>Расскажи обо мне своим знакомым, друзьям или родственникам. Как только они придут ко мне, ты получишь крутую скидку на любую услугу!</p>
+        <div class="steps">
+          <p>🌸 <b>Больше друзей = больше скидка.</b> Количество подруг не ограничено!</p>
+          <ul>
+            <li>1 подруга — скидка 10%</li>
+            <li>2 подруги — скидка 20%</li>
+            <li>...</li>
+            <li>10 подруг — скидка 100% (бесплатная процедура! 🎁)</li>
+          </ul>
+        </div>
+        <p>🌸 <b>Что нужно подруге?</b> При записи ей нужно обязательно сообщить имя и фамилию рекомендателя (то есть тебя).</p>
+        <p>🌸 <b>Когда начисляется бонус?</b> Твоя скидка активируется после того, как подруга пришла и воспользовалась услугой.</p>
+        <p>🌸 <b>Как потратить скидку?</b> Полученная скидка действует в течение 12 месяцев. Она является единоразовой и распространяется на любые процедуры.</p>
+        <p class="end">Давайте делать красивые ногти вместе 💕</p>
+      </div>
+
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-glow" id="pm-share">Поделиться ссылкой с подругой</button>
+        <button type="button" class="btn btn-glass" data-close>Понятно</button>
+      </div>
+      <p class="sign">С любовью, <span>МиМишка</span></p>
+    </div>
+  </div>
+</div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фото" hidden>
   <button type="button" class="lb-close" aria-label="Закрыть">&times;</button>
@@ -591,6 +673,92 @@ footer{position:relative;z-index:1;padding:40px 0 96px;text-align:center;color:v
       coll.style.setProperty('--rx', '0deg');
     });
   }
+
+  /* Окно с условиями акции */
+  var pm = document.getElementById('promo-modal');
+  var pmBar = document.getElementById('pm-bar');
+  var pmNum = document.getElementById('pm-num');
+  var pmNail = document.getElementById('pm-nail');
+  var pmShare = document.getElementById('pm-share');
+  var pmC = 2 * Math.PI * 75, pmRaf = 0, pmFrom = null;
+  pmBar.style.strokeDasharray = pmC + ' ' + pmC;
+
+  function setRing(v) {
+    pmBar.style.strokeDashoffset = pmC * (1 - v / 100);
+    pmNum.textContent = Math.round(v);
+  }
+  function runRing() {
+    cancelAnimationFrame(pmRaf);
+    pmNail.classList.remove('show');
+    if (calm) { setRing(100); pmNail.classList.add('show'); return; }
+    setRing(10);
+    var t0 = null, dur = 2200;
+    function frame(t) {
+      if (t0 === null) t0 = t;
+      var k = Math.min((t - t0) / dur, 1);
+      setRing(10 + 90 * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) pmRaf = requestAnimationFrame(frame);
+      else pmNail.classList.add('show');
+    }
+    pmRaf = requestAnimationFrame(frame);
+  }
+  function openPm(trigger) {
+    pmFrom = trigger;
+    pm.hidden = false;
+    document.body.style.overflow = 'hidden';
+    pm.querySelector('.sheet-body').scrollTop = 0;
+    pm.querySelector('[data-close]').focus();
+    setRing(10);
+    setTimeout(runRing, 400);
+  }
+  function closePm() {
+    pm.hidden = true;
+    document.body.style.overflow = '';
+    cancelAnimationFrame(pmRaf);
+    if (pmFrom) pmFrom.focus();
+  }
+  document.addEventListener('click', function (e) {
+    var o = e.target.closest('[data-open="promo-modal"]');
+    if (o) { openPm(o); return; }
+    if (!pm.hidden && (e.target === pm || e.target.closest('[data-close]'))) closePm();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (pm.hidden) return;
+    if (e.key === 'Escape') closePm();
+    else if (e.key === 'Tab') {
+      var f = [].slice.call(pm.querySelectorAll('button,a[href]'));
+      var cur = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(cur + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+
+  /* Поделиться: на телефоне открывает меню «Поделиться», на компьютере копирует ссылку */
+  function copyText(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+    } else { fallbackCopy(text, done); }
+  }
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (err) { window.prompt('Скопируйте ссылку:', text); }
+    document.body.removeChild(ta);
+  }
+  pmShare.addEventListener('click', function () {
+    var url = location.href.split('#')[0] + '#contacts';
+    var text = 'Записывайся в MiMishka Studio — маникюр и педикюр в Москве';
+    if (navigator.share && !fine) {
+      navigator.share({ title: 'MiMishka Studio', text: text, url: url }).catch(function () {});
+      return;
+    }
+    copyText(url, function () {
+      var old = pmShare.textContent;
+      pmShare.textContent = 'Ссылка скопирована';
+      setTimeout(function () { pmShare.textContent = old; }, 2200);
+    });
+  });
 
   /* Просмотр фото */
   var lb = document.getElementById('lb');
