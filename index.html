@@ -437,6 +437,95 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
 @media(max-width:640px){.lucky-heading{align-items:flex-start}.lucky-stamp{width:68px;height:68px;font-size:1.9rem}.lucky-picks{padding:40px 0 16px;gap:2px}.lucky-pick-label{font-size:.75rem}.lucky-file{width:clamp(52px,17vw,72px);height:clamp(155px,44vw,205px);padding:20px 7px}.lucky-shell{border-radius:26px}}
 @media(prefers-reduced-motion:reduce){.lucky-file{transition:none!important}}
 
+/* ---------- Окно с условиями акции ---------- */
+.modal{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(90,26,54,.45);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.modal[hidden]{display:none}
+.modal:not([hidden]){animation:fin .35s ease both}
+.sheet{width:100%;max-width:540px;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;border-radius:36px;background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(255,247,251,.9));animation:pop .55s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translateY(34px) scale(.96)}}
+.sheet-body{overflow-y:auto;overscroll-behavior:contain;padding:clamp(30px,5vw,44px) clamp(20px,4vw,34px) clamp(24px,4vw,34px);text-align:center;border-radius:inherit}
+.sheet-x{position:absolute;top:14px;right:14px;z-index:3;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.92);color:var(--berry);font:400 1.7rem/1 var(--sans);cursor:pointer;box-shadow:0 4px 12px rgba(214,57,127,.2);transition:transform .3s var(--ease)}
+.sheet-x:hover{transform:rotate(90deg) scale(1.06)}
+.sheet .script{margin:0 0 8px;padding:0 30px;color:var(--rose);font:400 1.35rem/1.25 var(--script)}
+.sheet h2{font-size:clamp(1.8rem,5.5vw,2.4rem);margin-bottom:4px}
+.ring-cap{margin:0 0 4px;color:var(--soft)}
+.ring{position:relative;width:180px;height:180px;margin:26px auto 6px}
+.ring svg{display:block;transform:rotate(-90deg)}
+.ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:italic 600 3rem/1 var(--display);color:var(--rose)}
+.ring-num small{margin-left:3px;font-size:1.3rem;font-style:normal}
+.ring-nail{position:absolute;left:50%;top:-8px;font-size:2.2rem;line-height:1;opacity:0;transform:translate(-50%,0) scale(0);transition:transform .6s var(--ease),opacity .4s}
+.ring-nail.show{opacity:1;transform:translate(-50%,-16px) scale(1)}
+.ring-label{margin:0 0 22px;color:var(--soft);font-size:.92rem;font-weight:500}
+.terms{text-align:left;font-size:.98rem;line-height:1.65}
+.terms p{margin:0 0 .9em}
+.steps{margin:14px 0;padding:14px 18px;border-radius:22px;background:rgba(255,226,238,.75);box-shadow:inset 0 1px 0 #fff,0 0 0 1px rgba(214,57,127,.12)}
+.steps p{margin:0 0 4px}
+.steps ul{margin:0;padding-left:20px}
+.terms .end{margin:16px 0 0;text-align:center;font-weight:600;color:var(--rose)}
+.sheet-actions{display:grid;justify-items:center;gap:10px;margin-top:22px}
+.sheet-actions .btn{width:100%;max-width:340px}
+.sign{margin:20px 0 0;color:var(--berry);font:400 1.5rem/1.2 var(--script)}
+.sign span{color:var(--rose)}
+@media (max-width:480px){.sheet{border-radius:28px}}
+
+
+/* Mobile polish and modal/photo stability */
+.hero-mobile-photo{display:none}
+.lucky-file{position:relative;isolation:isolate;background-image:linear-gradient(105deg,rgba(255,255,255,.30),transparent 35%,rgba(255,255,255,.12) 55%,transparent 72%),repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(255,255,255,.045) 4px);overflow:hidden;filter:drop-shadow(0 9px 12px rgba(84,27,57,.08));animation:luckyBreathe 3.4s ease-in-out infinite}
+.lucky-file::after{content:"";position:absolute;inset:-60% -40%;background:linear-gradient(105deg,transparent 43%,rgba(255,255,255,.4) 49%,transparent 55%);transform:translateX(-95%);animation:luckyGleam 4s ease-in-out infinite;pointer-events:none}
+.lucky-pick:nth-child(2) .lucky-file{animation-delay:-1s}.lucky-pick:nth-child(3) .lucky-file{animation-delay:-2s}
+@keyframes luckyBreathe{50%{box-shadow:inset 4px 3px 9px rgba(255,255,255,.65),inset -4px -6px 11px rgba(56,17,40,.2),0 20px 35px rgba(214,57,127,.31)}}
+@keyframes luckyGleam{40%,100%{transform:translateX(95%)}}
+.lucky-picks.is-drawn .lucky-file{animation:none}
+.lb{touch-action:pan-x pan-y;overscroll-behavior:contain}
+.lb img{max-width:calc(100vw - 28px);max-height:calc(100dvh - 120px);object-fit:contain;touch-action:pinch-zoom}
+.modal{overscroll-behavior:contain}.sheet{position:relative;overscroll-behavior:contain}
+@media(max-width:900px){.hero-mobile-photo{display:block;width:100%;height:clamp(178px,48vw,285px);border-radius:26px;margin:0 0 22px;box-shadow:0 15px 35px rgba(104,42,66,.17);text-align:left}.hero-mobile-photo img{height:100%;width:100%;object-fit:cover;object-position:center 48%}.hero-mobile-photo span{position:absolute;bottom:11px;left:13px;padding:7px 12px;border-radius:100px;background:rgba(255,249,249,.84);color:var(--berry);font-size:.77rem;font-weight:600;backdrop-filter:blur(10px)}.hero .wrap>div:first-child{min-width:0}}
+@media(max-width:640px){.hero{padding-top:77px!important}.hero .wrap{gap:10px}.hero .eyebrow{margin-bottom:12px;font-size:.69rem;letter-spacing:.11em}.hero h1{margin-bottom:12px}.hero .tagline{margin-bottom:18px}.hero-mobile-photo{height:clamp(175px,47vw,245px);margin-bottom:18px}.signature-stage .chip.c2{right:3px!important;bottom:auto!important;top:35%!important;max-width:190px;font-size:.68rem;line-height:1.25;padding:7px 10px;transform:translateY(-50%)}.booking-form h3{font-size:clamp(1.33rem,6vw,1.75rem);letter-spacing:-.05em;white-space:nowrap}.booking-form h3 span{white-space:nowrap}.service-picks{gap:7px}.service-picks span{padding:9px 11px;font-size:.79rem}.lucky-heading{gap:8px}.lucky-file{animation-duration:3.9s}}
+@media(prefers-reduced-motion:reduce){.lucky-file,.lucky-file::after{animation:none!important}}
+
+/* Navigation: selection as a minimal underline, not a cropped pill */
+.menu a.on{background:transparent!important;box-shadow:none!important;color:var(--berry)!important;position:relative}
+.menu a.on::after{content:"";position:absolute;left:16px;right:16px;bottom:3px;height:2px;border-radius:2px;background:var(--rose)}
+.service-picks .multi-tip{font-weight:400;color:var(--soft);font-size:.84em;letter-spacing:0}
+.portfolio-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 20px}
+.portfolio-tile:nth-child(even){margin-top:0}
+.portfolio-tile:nth-child(3n+2){margin-top:28px}
+.portfolio-tile[hidden]{display:none}
+.ring{margin-top:27px}
+.ring-num{padding-top:37px}
+.ring-nail,.ring-nail.show{position:absolute;left:50%;top:39px;opacity:1;transform:translateX(-50%) scale(1);transition:none;z-index:2;font-size:1.8rem;line-height:1;pointer-events:none}
+@media(max-width:650px){.portfolio-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.portfolio-tile{border-radius:60px 60px 12px 12px}.portfolio-tile:nth-child(3n+2){margin-top:12px}.portfolio-tile span{font-size:.55rem;padding:4px 5px;left:4px;bottom:5px}.service-picks .multi-tip{display:block;margin-top:3px}}
+
+
+/* Три фото и три коротких ролика — единая галерея */
+.portfolio-grid{align-items:start}
+.portfolio-grid .portfolio-tile:nth-child(2){margin-top:28px}
+.portfolio-grid .portfolio-tile:nth-child(3){margin-top:0}
+.media-video-card{position:relative;min-width:0;overflow:hidden;border-radius:26px;background:#efdce5;box-shadow:0 12px 30px rgba(81,45,58,.12);isolation:isolate}
+.portfolio-video{aspect-ratio:3/4;border-radius:155px 155px 22px 22px}
+.studio-video{aspect-ratio:9/16;border-radius:22px}
+.media-video-card video{display:block;width:100%;height:100%;object-fit:cover;background:#f1e4e8}
+.media-video-card .video-caption{position:absolute;top:10px;left:10px;z-index:2;border-radius:999px;padding:6px 11px;background:rgba(255,250,252,.84);backdrop-filter:blur(12px);color:var(--berry);font-size:.76rem;font-weight:600;pointer-events:none}
+.media-video-card .video-missing:not([hidden]){position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:22px;text-align:center;color:var(--berry);font-size:.84rem;background:linear-gradient(145deg,#ffebf0,#f6e9f5)}
+.video-missing code{font-size:.78rem;overflow-wrap:anywhere}
+.studio-video-block{margin-top:42px}
+.studio-video-heading{margin-bottom:20px}
+.studio-video-heading h3{font-size:clamp(1.7rem,3vw,2.5rem);margin-bottom:8px}
+.studio-video-heading p{max-width:66ch;margin:0;color:var(--soft)}
+.studio-video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:850px;margin-inline:auto}
+@media(max-width:650px){.portfolio-grid{gap:8px}.portfolio-grid .portfolio-tile:nth-child(2){margin-top:12px}.portfolio-video{border-radius:55px 55px 12px 12px}.media-video-card .video-caption{font-size:.57rem;padding:4px 6px;top:6px;left:5px}.studio-video-grid{gap:8px}.studio-video{border-radius:14px}.studio-video-block{margin-top:28px}.video-missing code{font-size:.65rem}}
+
+
+/* Точечные исправления формы и превью видео */
+.service-picks legend{display:block;width:100%;margin-bottom:12px}
+.service-picks legend .multi-tip{display:block;margin-top:3px;padding:0;background:none;border:0;border-radius:0;box-shadow:none;font:400 .8rem/1.5 var(--sans);text-transform:none;color:var(--soft)}
+.media-video-card{overflow:visible;background:transparent;box-shadow:none;border-radius:0;isolation:auto;display:flex;flex-direction:column;gap:7px;align-self:start}
+.media-video-card video{aspect-ratio:9/16;border-radius:24px;box-shadow:0 12px 30px rgba(81,45,58,.12);background:#f3e9ef;object-fit:cover;display:block;height:auto}
+.media-video-card .video-caption{position:static;z-index:auto;display:block;align-self:flex-start;max-width:100%;padding:0 2px;border-radius:0;background:none;backdrop-filter:none;box-shadow:none;color:var(--berry);font-size:clamp(.7rem,1.3vw,.9rem);font-weight:600;white-space:normal;overflow-wrap:anywhere;line-height:1.35;pointer-events:none}
+.media-video-card .video-missing:not([hidden]){border-radius:24px;inset:0 0 28px}
+.portfolio-grid .media-video-card{aspect-ratio:auto}
+@media(max-width:650px){.media-video-card video{border-radius:30px 30px 12px 12px}.media-video-card .video-caption{font-size:.72rem;padding:0 1px;line-height:1.35}.studio-video{border-radius:0}.studio-video video{border-radius:14px}.media-video-card .video-missing:not([hidden]){inset:0 0 29px}}
 </style>
 </head>
 <body>
@@ -467,6 +556,7 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
         <p class="eyebrow fade">MiMishka Studio · Москва · м. Бабушкинская</p>
         <h1 id="hero-title">Маникюр с <em>характером</em></h1>
         <p class="tagline fade" style="--d:.22s">Для тех, кто любит красиво, аккуратно и не как у всех.</p>
+        <button type="button" class="hero-mobile-photo tile" data-gallery="works" aria-label="Открыть фотографию маникюра"><img src="images/work-3.jpeg" alt="Длинные ногти с ярким розово-сиреневым дизайном" fetchpriority="high"><span>Маникюр с характером ✦</span></button>
         <p class="hero-intro fade" style="--d:.35s">MiMishka Studio — маникюр и педикюр на Бабушкинской: от деликатной классики до яркого дизайна и длинной формы. Уютная студия, актуальный прайс и запись без лишних шагов.</p>
         <div class="btn-row fade" style="--d:.9s">
           <a class="btn btn-glow" href="#booking">Выбрать процедуру <span aria-hidden="true">↗</span></a>
@@ -512,20 +602,21 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
 
   <section class="sec booking-sec" id="booking" aria-labelledby="booking-title">
     <div class="wrap booking-layout">
-      <div class="booking-copy rv"><p class="eyebrow">Легко начать</p><h2 id="booking-title">Ваш следующий красивый маникюр <em>начинается здесь</em></h2><p class="lead">Расскажите, что хочется сделать. Выберите услугу и удобное время, затем отправьте заявку в студию через любимый мессенджер. В переписке можно быстро согласовать запись и свободное время.</p>
+      <div class="booking-copy rv"><h2 id="booking-title">Ваш следующий красивый маникюр <em>начинается здесь</em></h2><p class="lead">Расскажите, что хочется сделать. Выберите нужные услуги и отправьте заявку в студию через любимый мессенджер. Свободное время можно согласовать в переписке.</p>
         <div class="booking-points"><span>01 / Выберите услугу</span><span>02 / Укажите пожелания</span><span>03 / Отправьте заявку в студию</span></div>
       </div>
       <div class="booking-form glass rv" id="booking-form">
-        <h3>Давайте знакомиться ♡</h3>
+        <h3>Давайте знакомиться <span aria-hidden="true">♡</span></h3>
         <p class="form-hint">Это запрос на запись, не автоматическое подтверждение времени.</p>
-        <fieldset class="service-picks"><legend>Что планируем?</legend>
-          <label><input type="radio" name="service" value="Маникюр" checked><span>Маникюр</span></label>
-          <label><input type="radio" name="service" value="Педикюр"><span>Педикюр</span></label>
-          <label><input type="radio" name="service" value="Маникюр и педикюр"><span>Маникюр + педикюр</span></label>
-          <label><input type="radio" name="service" value="Хочу посоветоваться"><span>Нужен совет</span></label>
+        <fieldset class="service-picks"><legend>Что планируем?<small class="multi-tip">можно выбрать несколько вариантов</small></legend>
+          <label><input type="checkbox" name="service" value="Маникюр"><span>Маникюр</span></label>
+          <label><input type="checkbox" name="service" value="Педикюр"><span>Педикюр</span></label>
+          <label><input type="checkbox" name="service" value="Снятие, маникюр + покрытие"><span>Снятие, маникюр + покрытие 🔥</span></label>
+          <label><input type="checkbox" name="service" value="Снятие, педикюр + покрытие"><span>Снятие, педикюр + покрытие</span></label>
+          <label><input type="checkbox" name="service" value="Несложный дизайн"><span>Несложный дизайн</span></label>
+          <label><input type="checkbox" name="service" value="Сложный дизайн"><span>Сложный дизайн 🔥</span></label>
+                    <label><input type="checkbox" name="service" value="Хочу посоветоваться"><span>Нужен совет</span></label>
         </fieldset>
-        <label class="field-label" for="book-time">Когда вам удобно?</label>
-        <select id="book-time" class="field"><option value="В ближайшее свободное время">В ближайшее свободное время</option><option value="В будни">В будни</option><option value="В выходные">В выходные</option><option value="В первой половине дня">В первой половине дня</option><option value="Во второй половине дня">Во второй половине дня</option></select>
         <label class="field-label" for="book-note">Пожелания <span>(необязательно)</span></label>
         <textarea class="field" id="book-note" rows="2" maxlength="300" placeholder="Например: нюдовое покрытие, хочу дизайн…"></textarea>
         <p class="field-label">Где удобнее написать?</p>
@@ -541,12 +632,14 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
   </section>
 
   <section class="sec portfolio-sec" id="portfolio" aria-labelledby="portfolio-title"><div class="wrap">
-    <div class="section-heading rv"><div><p class="eyebrow">Работы говорят за себя</p><h2 id="portfolio-title">Немного <em>вдохновения</em></h2><p class="lead">Реальные примеры работ. Нажмите на фото, чтобы рассмотреть детали.</p></div><a href="https://vk.com/albums-73152413" target="_blank" rel="noopener" class="textlink">Все работы ВКонтакте ↗</a></div>
+    <div class="section-heading rv"><div><p class="eyebrow">Работы говорят за себя</p><h2 id="portfolio-title">Немного <em>вдохновения</em></h2><p class="lead">Фотографии и короткие видео маникюра. Нажмите на фото, чтобы рассмотреть детали, или включите видео.</p></div><a href="https://vk.com/albums-73152413" target="_blank" rel="noopener" class="textlink">Все работы ВКонтакте ↗</a></div>
     <div class="portfolio-grid rv">
       <button type="button" class="tile portfolio-tile" data-gallery="portfolio" aria-label="Открыть работу 1"><img src="images/work-1.jpeg" alt="Пример маникюра — работа 1" loading="lazy"><span>Работа 01 ↗</span></button>
       <button type="button" class="tile portfolio-tile" data-gallery="portfolio" aria-label="Открыть работу 2"><img src="images/work-2.jpeg" alt="Пример маникюра — работа 2" loading="lazy"><span>Работа 02 ↗</span></button>
       <button type="button" class="tile portfolio-tile" data-gallery="portfolio" aria-label="Открыть работу 3"><img src="images/work-3.jpeg" alt="Пример маникюра — работа 3" loading="lazy"><span>Работа 03 ↗</span></button>
-      <button type="button" class="tile portfolio-tile" data-gallery="portfolio" aria-label="Открыть работу 4"><img src="images/work-4.jpeg" alt="Пример маникюра — работа 4" loading="lazy"><span>Работа 04 ↗</span></button>
+      <div class="media-video-card portfolio-video"><video controls playsinline preload="metadata" aria-label="Видео маникюра — работа 4"><source src="images/work-video-1.mp4" type="video/mp4"></video><div class="video-missing" hidden>Видео появится здесь после добавления файла <code>work-video-1.mp4</code></div><span class="video-caption">В движении · 01</span></div>
+      <div class="media-video-card portfolio-video"><video controls playsinline preload="metadata" aria-label="Видео маникюра — работа 5"><source src="images/work-video-2.mp4" type="video/mp4"></video><div class="video-missing" hidden>Видео появится здесь после добавления файла <code>work-video-2.mp4</code></div><span class="video-caption">В движении · 02</span></div>
+      <div class="media-video-card portfolio-video"><video controls playsinline preload="metadata" aria-label="Видео маникюра — работа 6"><source src="images/work-video-3.mp4" type="video/mp4"></video><div class="video-missing" hidden>Видео появится здесь после добавления файла <code>work-video-3.mp4</code></div><span class="video-caption">В движении · 03</span></div>
     </div><div class="portfolio-cta rv"><span>Уже присмотрели что-то для себя?</span><a class="btn btn-glow btn-sm" href="#booking">Хочу так же ↗</a></div>
   </div></section>
 
@@ -621,7 +714,6 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
             <p>За годы работы я прошла более 70 курсов — и до сих пор обожаю узнавать новое, пробовать сложные техники и совершенствовать свои навыки.</p>
             <p>Но любовь создавать красоту не заканчивается за маникюрным столом. Я делаю ароматные свечи ручной работы, украшаю кружки полимерной глиной, создаю уютные вещицы из гипса с помощью необычных форм-молдов и шью коллекционных мишек Тедди. Мне нравится, когда из простых материалов рождается что-то особенное — вещь с настроением, историей и душой.</p>
             <p>Эти увлечения со временем выросли в отдельные творческие проекты. Если интересно, загляните ниже в раздел <a href="#projects" class="textlink">«Другие мои проекты»</a> — там живёт ещё одна частичка моего мира.</p>
-            <p>А ещё я счастливая мама замечательного мальчика. Свою профессию люблю так сильно, что вернулась к любимому делу вскоре после его рождения.</p>
             <p class="ps"><strong>P.S.</strong> Я почти всегда занята работой с клиентками, поэтому для записи и вопросов удобнее всего написать в мессенджер. Обязательно прочитаю ваше сообщение и отвечу, как только появится возможность. ♡</p>
           </div>
         </div>
@@ -641,6 +733,14 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
           <div class="ph rim"><img src="images/studio-1.jpeg" alt="Интерьер студии, фото 1" loading="lazy"></div>
           <div class="ph rim"><img src="images/studio-2.jpeg" alt="Интерьер студии, фото 2" loading="lazy"></div>
           <div class="ph rim"><img src="images/studio-3.jpeg" alt="Интерьер студии, фото 3" loading="lazy"></div>
+        </div>
+        <div class="studio-video-block">
+          <div class="studio-video-heading"><h3>Технологии, которые вдохновляют</h3><p>Распаковки нового оборудования для студии — короткие видео о том, что остаётся за кадром красивого маникюра.</p></div>
+          <div class="studio-video-grid">
+            <div class="media-video-card studio-video"><video controls playsinline preload="metadata" aria-label="Распаковка оборудования для студии, видео 1"><source src="images/studio-video-1.mp4" type="video/mp4"></video><div class="video-missing" hidden>Добавьте видео <code>studio-video-1.mp4</code></div><span class="video-caption">Распаковка · 01</span></div>
+            <div class="media-video-card studio-video"><video controls playsinline preload="metadata" aria-label="Распаковка оборудования для студии, видео 2"><source src="images/studio-video-2.mp4" type="video/mp4"></video><div class="video-missing" hidden>Добавьте видео <code>studio-video-2.mp4</code></div><span class="video-caption">Распаковка · 02</span></div>
+            <div class="media-video-card studio-video"><video controls playsinline preload="metadata" aria-label="Распаковка оборудования для студии, видео 3"><source src="images/studio-video-3.mp4" type="video/mp4"></video><div class="video-missing" hidden>Добавьте видео <code>studio-video-3.mp4</code></div><span class="video-caption">Распаковка · 03</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -696,8 +796,8 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
         <div>
           <h2 id="promo-title">Приведи подругу</h2>
           <p>Получи скидку до 100% за каждую подругу. Собери 10 подруг — получи процедуру в подарок.</p>
-          <a class="btn btn-glow" href="https://mimishkastudio.ru/referal" target="_blank" rel="noopener">Условия акции</a>
-          <p class="small">Подробные условия — по ссылке выше.</p>
+          <button type="button" class="btn btn-glow" data-open="promo-modal" aria-haspopup="dialog">Условия акции</button>
+          
         </div>
         <div class="big" aria-hidden="true">100%</div>
       </div>
@@ -727,6 +827,7 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
   <section class="sec faq-sec" id="faq" aria-labelledby="faq-title"><div class="wrap faq-layout"><div class="rv"><p class="eyebrow">Всё просто</p><h2 id="faq-title">Частые <em>вопросы</em></h2><p class="lead">Если вашего вопроса здесь нет, просто напишите в студию — в переписке подскажут все детали.</p></div><div class="faq-items rv">
     <details><summary>Как записаться на маникюр или педикюр?</summary><p>Выберите процедуру и удобное время в форме выше, затем отправьте подготовленное сообщение в Telegram, MAX или ВКонтакте. В переписке можно быстро согласовать запись.</p></details>
     <details><summary>Где находится студия?</summary><p>Москва, ул. Лётчика Бабушкина, дом 39, корпус 3. Ниже есть карта и ссылка для построения маршрута.</p></details>
+    <details><summary>Есть ли рядом парковка?</summary><p>Рядом со студией есть платная и бесплатная парковка. Бесплатные места можно найти немного вглубь двора, а также со стороны «Пятёрочки» или суда. </p></details>
     <details><summary>Где посмотреть цены?</summary><p>Все актуальные цены перечислены текстом в разделе «Услуги и стоимость». Сложный дизайн и нестандартная форма рассчитываются индивидуально.</p></details>
     <details><summary>Можно ли выбрать дизайн по фотографии?</summary><p>При записи опишите пожелания к дизайну. При необходимости фото-референс можно отправить непосредственно в чат студии.</p></details>
   </div></div></section>
@@ -737,7 +838,7 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
         <div class="contacts-grid">
           <div>
             <h2 id="contacts-title">До встречи <em>в MiMishka</em> ♡</h2>
-            <p class="lead">Студия находится в Москве на улице Лётчика Бабушкина. Напишите в студию, чтобы подобрать удобное время.</p><p><a class="btn btn-glow btn-sm" href="#booking">Подготовить заявку ↗</a></p>
+            <p class="lead">Студия находится в Москве на улице Лётчика Бабушкина. Напишите в студию, чтобы подобрать удобное время.</p><p><a class="btn btn-glow btn-sm" href="#booking">Выбрать услугу и записаться ↗</a></p>
             <div class="btn-row">
               <a class="btn btn-glow" href="https://max.ru/u/f9LHodD0cOJoaK_Dhf_PGfrXSyZ8aAoHkcIRdVlTv7j6bFMHR09Sp6FCTWQ" target="_blank" rel="noopener">Написать в MAX</a>
               <a class="btn btn-glow" href="https://t.me/olmimishka" target="_blank" rel="noopener">Написать в Telegram</a>
@@ -770,9 +871,61 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
 
 </main>
 
-<footer>© MiMishka Studio · Маникюр и педикюр в Москве · Сделано с заботой ♡</footer>
+<footer>© MiMishka Studio · Маникюр и педикюр в Москве · Сделано мужем с заботой ♡</footer>
 
 <a class="btn btn-glow fab" id="fab" href="#booking">Записаться ↗</a>
+
+<div class="modal" id="promo-modal" role="dialog" aria-modal="true" aria-labelledby="promo-modal-title" hidden>
+  <div class="sheet glass">
+    <button type="button" class="sheet-x" data-close aria-label="Закрыть">&times;</button>
+    <div class="sheet-body">
+      <p class="script">Поделитесь заботой о красоте с близким человеком</p>
+      <h2 id="promo-modal-title">Приведи подругу</h2>
+      <p class="ring-cap">и получи скидку до</p>
+
+      <div class="ring" aria-hidden="true">
+        <svg width="180" height="180" viewBox="0 0 180 180">
+          <defs>
+            <linearGradient id="pm-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff8fbf"/>
+              <stop offset="100%" stop-color="#d6397f"/>
+            </linearGradient>
+          </defs>
+          <circle cx="90" cy="90" r="75" fill="none" stroke="#ffe0ee" stroke-width="12"/>
+          <circle id="pm-bar" cx="90" cy="90" r="75" fill="none" stroke="url(#pm-grad)" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+        <div class="ring-num"><span id="pm-num">10</span><small>%</small></div>
+        <div class="ring-nail" id="pm-nail" aria-hidden="true">💅</div>
+      </div>
+      <p class="ring-label">Твоя скидка растёт с каждой подругой</p>
+
+      <div class="terms">
+        <p>🌸 <b>Акция, которую вы так долго ждали!</b> Приведи подругу — получи скидку до 100%!</p>
+        <p>Расскажи обо мне своим знакомым, друзьям или родственникам. Как только они придут ко мне, ты получишь крутую скидку на любую услугу!</p>
+        <div class="steps">
+          <p>🌸 <b>Больше друзей = больше скидка.</b> Количество подруг не ограничено!</p>
+          <ul>
+            <li>1 подруга — скидка 10%</li>
+            <li>2 подруги — скидка 20%</li>
+            <li>...</li>
+            <li>10 подруг — скидка 100% (бесплатная процедура! 🎁)</li>
+          </ul>
+        </div>
+        <p>🌸 <b>Что нужно подруге?</b> При записи ей нужно обязательно сообщить имя и фамилию рекомендателя (то есть тебя).</p>
+        <p>🌸 <b>Когда начисляется бонус?</b> Твоя скидка активируется после того, как подруга пришла и воспользовалась услугой.</p>
+        <p>🌸 <b>Как потратить скидку?</b> Полученная скидка действует в течение 12 месяцев. Она является единоразовой и распространяется на любые процедуры.</p>
+        <p class="end">Давайте делать красивые ногти вместе 💕</p>
+      </div>
+
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-glow" id="pm-share">Поделиться ссылкой с подругой</button>
+        <button type="button" class="btn btn-glass" data-close>Понятно</button>
+      </div>
+      <p class="sign">С любовью, <span>МиМишка</span></p>
+    </div>
+  </div>
+</div>
+
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фото" hidden>
   <button type="button" class="lb-close" aria-label="Закрыть">&times;</button>
@@ -791,11 +944,10 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
 
   /* Подготовка заявки без сервера и хранения персональных данных */
   function bookingText() {
-    var chosen = document.querySelector('input[name="service"]:checked');
-    var service = chosen ? chosen.value : 'Маникюр';
-    var timing = document.getElementById('book-time').value;
+    var chosen = [].slice.call(document.querySelectorAll('input[name="service"]:checked'));
+    var service = chosen.length ? chosen.map(function(el){return el.value;}).join(', ') : 'Нужна консультация';
     var note = document.getElementById('book-note').value.trim();
-    return 'Здравствуйте! Хочу записаться в MiMishka Studio.\nУслуга: ' + service + '\nУдобное время: ' + timing + (note ? '\nПожелания: ' + note : '') + '\nПодскажите, пожалуйста, какие даты и время свободны.';
+    return 'Здравствуйте! Хочу записаться в MiMishka Studio.\nУслуга: ' + service + (note ? '\nПожелания: ' + note : '') + '\nПодскажите, пожалуйста, какие даты и время свободны.';
   }
   function copyBooking() {
     var value = bookingText();
@@ -908,6 +1060,92 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
     });
   }
 
+  /* Окно с условиями акции */
+  var pm = document.getElementById('promo-modal');
+  var pmBar = document.getElementById('pm-bar');
+  var pmNum = document.getElementById('pm-num');
+  var pmNail = document.getElementById('pm-nail');
+  var pmShare = document.getElementById('pm-share');
+  var pmC = 2 * Math.PI * 75, pmRaf = 0, pmFrom = null;
+  pmBar.style.strokeDasharray = pmC + ' ' + pmC;
+
+  function setRing(v) {
+    pmBar.style.strokeDashoffset = pmC * (1 - v / 100);
+    pmNum.textContent = Math.round(v);
+  }
+  function runRing() {
+    cancelAnimationFrame(pmRaf);
+    pmNail.classList.add('show');
+    if (calm) { setRing(100); pmNail.classList.add('show'); return; }
+    setRing(10);
+    var t0 = null, dur = 2200;
+    function frame(t) {
+      if (t0 === null) t0 = t;
+      var k = Math.min((t - t0) / dur, 1);
+      setRing(10 + 90 * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) pmRaf = requestAnimationFrame(frame);
+      else pmNail.classList.add('show');
+    }
+    pmRaf = requestAnimationFrame(frame);
+  }
+  function openPm(trigger) {
+    pmFrom = trigger;
+    pm.hidden = false;
+    document.body.style.overflow = 'hidden';
+    pm.querySelector('.sheet-body').scrollTop = 0;
+    pm.querySelector('[data-close]').focus();
+    setRing(10);
+    setTimeout(runRing, 400);
+  }
+  function closePm() {
+    pm.hidden = true;
+    document.body.style.overflow = '';
+    cancelAnimationFrame(pmRaf);
+    if (pmFrom) pmFrom.focus();
+  }
+  document.addEventListener('click', function (e) {
+    var o = e.target.closest('[data-open="promo-modal"]');
+    if (o) { openPm(o); return; }
+    if (!pm.hidden && (e.target === pm || e.target.closest('[data-close]'))) closePm();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (pm.hidden) return;
+    if (e.key === 'Escape') closePm();
+    else if (e.key === 'Tab') {
+      var f = [].slice.call(pm.querySelectorAll('button,a[href]'));
+      var cur = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(cur + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+
+  /* Поделиться: на телефоне открывает меню «Поделиться», на компьютере копирует ссылку */
+  function copyText(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+    } else { fallbackCopy(text, done); }
+  }
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (err) { window.prompt('Скопируйте ссылку:', text); }
+    document.body.removeChild(ta);
+  }
+  pmShare.addEventListener('click', function () {
+    var url = location.href.split('#')[0] + '#booking';
+    var text = 'Записывайся в MiMishka Studio — маникюр и педикюр в Москве';
+    if (navigator.share && !fine) {
+      navigator.share({ title: 'MiMishka Studio', text: text, url: url }).catch(function () {});
+      return;
+    }
+    copyText(url, function () {
+      var old = pmShare.textContent;
+      pmShare.textContent = 'Ссылка скопирована';
+      setTimeout(function () { pmShare.textContent = old; }, 2200);
+    });
+  });
+
   /* Просмотр фото */
   var lb = document.getElementById('lb');
   var lbImg = lb.querySelector('img');
@@ -923,21 +1161,32 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
     lbImg.alt = im.alt;
     lbCount.textContent = (idx + 1) + ' из ' + group.length;
   }
+  var overlayScrollY = 0;
   function openLb(btn) {
     var g = btn.getAttribute('data-gallery');
-    group = [].slice.call(document.querySelectorAll('[data-gallery="' + g + '"]'));
+    group = [].slice.call(document.querySelectorAll('[data-gallery="' + g + '"]')).filter(function(el){ return !el.hidden; });
     idx = group.indexOf(btn);
     lastFocus = btn;
     var single = group.length < 2;
     btnPrev.style.display = btnNext.style.display = single ? 'none' : '';
+    overlayScrollY = window.scrollY;
     lb.hidden = false;
-    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + overlayScrollY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
     show();
     btnClose.focus();
   }
   function closeLb() {
     lb.hidden = true;
-    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, overlayScrollY);
     lbImg.removeAttribute('src');
     if (lastFocus) lastFocus.focus();
   }
@@ -969,6 +1218,7 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
   });
 
   var startX = null;
+  lb.addEventListener('touchmove', function(e){if(e.touches.length>1)e.preventDefault();}, {passive:false});
   lb.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
   lb.addEventListener('touchend', function (e) {
     if (startX === null || group.length < 2) return;
@@ -1039,6 +1289,35 @@ h2 em,.hero h1 em{color:var(--rose);font-weight:500}
   syncProgress();
   window.addEventListener('scroll', syncProgress, {passive:true});
   window.addEventListener('resize', syncProgress);
+
+
+  /* Видео не запускаются автоматически и останавливают друг друга */
+  document.querySelectorAll('.media-video-card video').forEach(function(video) {
+    /* Для обложки используется кадр самого ролика, а не посторонняя фотография. */
+    video.addEventListener('loadedmetadata', function() {
+      if (video.readyState >= 1 && Number.isFinite(video.duration) && video.duration > .15) {
+        try { video.currentTime = Math.min(.12, video.duration / 3); } catch (e) {}
+      }
+    }, {once:true});
+    video.addEventListener('play', function() {
+      document.querySelectorAll('.media-video-card video').forEach(function(other) {
+        if (other !== video && !other.paused) other.pause();
+      });
+    });
+    video.addEventListener('error', function() {
+      var holder = video.closest('.media-video-card');
+      var note = holder && holder.querySelector('.video-missing');
+      if (note) { video.hidden = true; note.hidden = false; }
+    });
+    /* Ошибка источника отображается как аккуратная заглушка, не сломанный плеер. */
+    video.querySelectorAll('source').forEach(function(source) {
+      source.addEventListener('error', function() {
+        var holder = video.closest('.media-video-card');
+        var note = holder && holder.querySelector('.video-missing');
+        if (note) { video.hidden = true; note.hidden = false; }
+      });
+    });
+  });
 
   /* Плавающая кнопка прячется, когда виден блок «Записаться» */
   var fab = document.getElementById('fab');
